@@ -61,10 +61,9 @@ CREATE TABLE grp(
 #------------------------------------------------------------
 
 CREATE TABLE user(
-        idu        Int  Auto_increment  NOT NULL ,
+        idu        Int    NOT NULL ,
         nom        Varchar (50) NOT NULL ,
         prenom     Varchar (50) NOT NULL ,
-        datenaissa Date NOT NULL ,
         idgrp      Int NOT NULL
 	,CONSTRAINT user_PK PRIMARY KEY (idu)
 
@@ -77,16 +76,34 @@ CREATE TABLE user(
 #------------------------------------------------------------
 
 CREATE TABLE moniteur(
-        idu           Int NOT NULL ,
+        idu           Int Auto_increment NOT NULL ,
         date_embauche Date NOT NULL ,
         nom           Varchar (50) NOT NULL ,
         prenom        Varchar (50) NOT NULL ,
         datenaissa    Date NOT NULL ,
+        mail          VARCHAR (200),
+        passwd        VARCHAR (255),
         idgrp         Int NOT NULL
 	,CONSTRAINT moniteur_PK PRIMARY KEY (idu)
 
-	,CONSTRAINT moniteur_user_FK FOREIGN KEY (idu) REFERENCES user(idu)
 	,CONSTRAINT moniteur_grp0_FK FOREIGN KEY (idgrp) REFERENCES grp(idgrp)
+)ENGINE=InnoDB;
+
+#------------------------------------------------------------
+# Table: moniteur
+#------------------------------------------------------------
+
+CREATE TABLE admin(
+        idu           Int Auto_increment NOT NULL ,
+        date_embauche Date NOT NULL ,
+        nom           Varchar (50) NOT NULL ,
+        prenom        Varchar (50) NOT NULL ,
+        mail          VARCHAR (200),
+        passwd        VARCHAR (255),
+        idgrp         Int NOT NULL
+	,CONSTRAINT admin_PK PRIMARY KEY (idu)
+
+	,CONSTRAINT admin_grp0_FK FOREIGN KEY (idgrp) REFERENCES grp(idgrp)
 )ENGINE=InnoDB;
 
 
@@ -95,20 +112,19 @@ CREATE TABLE moniteur(
 #------------------------------------------------------------
 
 CREATE TABLE client(
-        idu             Int NOT NULL ,
+        idu             Int Auto_increment NOT NULL ,
         adresse         Varchar (50) NOT NULL ,
         code_zip        Char (5) NOT NULL ,
-        region          Varchar (50) NOT NULL ,
         datenaissa      Date NOT NULL ,
         tel             Varchar (50) NOT NULL ,
         nom             Varchar (50) NOT NULL ,
         prenom          Varchar (50) NOT NULL ,
-        datenaissa_user Date NOT NULL ,
-        idu_moniteur    Int NOT NULL ,
+        mail          VARCHAR (200),
+        passwd        VARCHAR (255),
+        idu_moniteur    Int  ,
         idgrp           Int NOT NULL
 	,CONSTRAINT client_PK PRIMARY KEY (idu)
 
-	,CONSTRAINT client_user_FK FOREIGN KEY (idu) REFERENCES user(idu)
 	,CONSTRAINT client_moniteur0_FK FOREIGN KEY (idu_moniteur) REFERENCES moniteur(idu)
 	,CONSTRAINT client_grp1_FK FOREIGN KEY (idgrp) REFERENCES grp(idgrp)
 )ENGINE=InnoDB;
@@ -146,50 +162,38 @@ CREATE TABLE rouler(
 	,CONSTRAINT rouler_mois0_FK FOREIGN KEY (idm) REFERENCES mois(idm)
 )ENGINE=InnoDB;
 
+INSERT INTO `modele` (`idmo`, `nom`, `cylindre`)
+ VALUES ('1', 'ssdsdsd', '234');
 
+INSERT INTO `voiture` (`idv`, `immatriculation`, `date_achat`, `nb_km`, `idmo`)
+VALUES
+('1', 'AA-304-BB', '2019-01-01', '1000', '1'),
+ ('2', 'AA-304-BB', '2019-01-01', '200000', '1'),
+ ('3', 'AA-304-BB', '2019-01-01', '300000', '1'),
+ ('4', 'AA-304-BB', '2019-01-01', '200000', '1');
 
-
-#------------------------------------------------------------
-# Table: triggers
-#------------------------------------------------------------
-
-
-
-DROP Trigger if exists userajout_client;
 DELIMITER //
-CREATE Trigger userajout_client
-BEFORE INSERT ON client
-FOR EACH ROW
-BEGIN
-DECLARE var1 int;
-SELECT COUNt(*)
-into var1
-FROM user
-where idu=new.idu;
-IF var1 = 0
-THEN
-INSERT INTO user (nom,prenom,datenaissa,idgrp)
-VALUES (new.idu,new.nom,new.prenom,new.datenaissa,new.idgrp);
-END IF ;
+CREATE TRIGGER checkcar
+AFTER  INSERT  on voiture for each row
+begin
+if new.nb_km < 200000
+THEN signal SQLSTATE '45000'
+SET MESSAGE_TEXT = 'impossible';
+END IF;
 END //
 DELIMITER ;
 
 
-DROP Trigger if exists userajout_moniteur;
-DELIMITER //
-CREATE Trigger userajout_moniteur
-BEFORE INSERT ON moniteur
-FOR EACH ROW
-BEGIN
-DECLARE var1 int;
-SELECT COUNt(*)
-into var1
-FROM user
-where idu=new.idu;
-IF var1 = 0
-THEN
-INSERT INTO user (nom,prenom,datenaissa,idgrp)
-VALUES (new.idu,new.nom,new.prenom,new.datenaissa,new.idgrp);
-END IF ;
-END //
-DELIMITER ;
+INSERT INTO `grp` (`idgrp`, `nom`) VALUES
+('2', 'client'),
+('1', 'admin'),
+('3', 'moniteur');
+
+INSERT INTO `moniteur` (`idu`, `date_embauche`, `nom`, `prenom`, `datenaissa`, `mail`, `passwd`, `idgrp`) VALUES
+(NULL, '2016-03-07', 'Pinelli', 'Vincent', '1978-12-03', 'vincent.pinelli@wanadoo.fr', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', '2');
+
+INSERT INTO `moniteur` (`idu`, `date_embauche`, `nom`, `prenom`, `datenaissa`, `mail`, `passwd`, `idgrp`) VALUES
+(NULL, '2018-12-02', 'Albert', 'Nicolas', '1990-12-02', 'sdsdd@sdsd.fr', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', '2'),
+(NULL, '2015-12-18', 'Fleure', 'marie', '1985-12-01', 'sdsdd@yahoo.fr', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', '2');
+
+INSERT INTO `admin` (`idu`, `date_embauche`, `nom`, `prenom`, `mail`, `passwd`, `idgrp`) VALUES (NULL, '2018-12-18', 'test', 'test', 'masdsdjsd@sdsdsd.fr', MD5('sdsdsdsd'), '1');
