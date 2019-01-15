@@ -56,7 +56,7 @@ require 'fonctionphp/gestuser.php'
   <center>
   <div class="row">
     <div class="col">
-      <h5>Devenez membre</h5>
+      <h5 id="1" >Devenez membre</h5>
       <br>
       <form class="" action="" method="post">
         <input type="text" class="form-control" name="nom" placeholder="Nom"><br>

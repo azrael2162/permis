@@ -1,8 +1,8 @@
 <?php
-$db='';
+$db='autoEcole';
 $ip = 'mysql:dbname='.$db.';host=localhost';
-$login = "";
-$pass = "";
+$login = "root";
+$pass = "root";
 
 try {
     $db = new PDO ($ip,$login,$pass);

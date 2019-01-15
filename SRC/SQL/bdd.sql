@@ -119,8 +119,9 @@ CREATE TABLE client(
         tel             Varchar (50) NOT NULL ,
         nom             Varchar (50) NOT NULL ,
         prenom          Varchar (50) NOT NULL ,
-        mail          VARCHAR (200),
-        passwd        VARCHAR (255),
+        mail            VARCHAR (200),
+        passwd          VARCHAR (255),
+        valider         INT (1),
         idu_moniteur    Int  ,
         idgrp           Int NOT NULL
 	,CONSTRAINT client_PK PRIMARY KEY (idu)
