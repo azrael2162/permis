@@ -1,5 +1,5 @@
 <?php
-require 'fonctionphp/gestuser.php'
+require 'fonctionphp/gestuser.php';
 ?>
 <div class="container">
 <center>

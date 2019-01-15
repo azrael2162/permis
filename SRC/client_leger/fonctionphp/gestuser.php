@@ -54,9 +54,12 @@ function ajout_user(){
           }
 
           //ouverture de la session_start
-          
+
           $_SESSION['idu']=$id;
-          header("location: ?page=confirmation");
+
+          echo "<div class='alert alert-dismissible alert-success'>
+                <a class='alert-link'>Validez votre Inscription<a href='?page=confirmation'>Cliquez ici,svp.</a>
+                </div>";
 
         }else {
           echo "<div class='alert alert-dismissible alert-danger'>
