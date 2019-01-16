@@ -1,6 +1,8 @@
+<?php
+require 'fonctionphp/connexion.php';
+ ?>
 <div class="container">
 <br><br><br>
-
 <h4>Connexion :</h4>
 <div class="col">
   <br>
