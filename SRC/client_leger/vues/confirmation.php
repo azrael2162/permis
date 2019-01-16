@@ -1,30 +1,5 @@
 <?php
-require 'fonctionphp/config.php';
-function verifToken(){
-    if (isset($_POST['valider'])) {
-      $code = $_POST['code'];
-      GLOBAL $db;
-      $query = "Select * from client where idu= '".$_SESSION['idu']."';";
-
-      $query4ok=$db->prepare($query);
-      $query4ok->execute();
-      $count=$query4ok->rowCount();
-
-      if ($count == 1) {
-        while ($row = $query4ok->fetch(PDO::FETCH_NUM)) {
-          $token=$row[9];
-        }
-
-        $codecrypt = password_hash($code, PASSWORD_BCRYPT);
-  
-        if ($token == $codecrypt) {
-          echo "string";
-      }else {
-        echo "pas string";
-      }
-    }
-  }
-}
+require 'fonctionphp/verifToken.php';
 
 
   if (!empty($_SESSION['idu'])) {

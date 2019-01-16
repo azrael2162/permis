@@ -1,5 +1,5 @@
 <?php
-require 'fonctionphp/gestuser.php';
+require 'fonctionphp/inscription.php';
 ?>
 <div class="container">
 <center>

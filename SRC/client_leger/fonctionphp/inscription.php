@@ -26,7 +26,7 @@ function ajout_user(){
            if (strlen($passwd) > 6) {
 
 
-            $psswcrypt = password_hash($passwd, PASSWORD_BCRYPT);
+            $psswcrypt = sha1($passwd);
 
             $requete = "INSERT INTO client (`idu`, `adresse`, `code_zip`,`datenaissa`, `tel`, `nom`, `prenom`, `mail`, `passwd`, `valider`, `idu_moniteur`, `idgrp`) VALUES
             (NULL, '$adress', '$zip', '$date', '$tel', '$nom', '$prenom', '$email', '$psswcrypt','0', NULL, '1');";
@@ -44,11 +44,14 @@ function ajout_user(){
             if ($count >= 1) {
               while ($row = $query2ok->fetch(PDO::FETCH_NUM)) {
                 $id=$row[0];
+                $grp=$row[12];
               }
 
           //ouverture de la session_start
 
           $_SESSION['idu']=$id;
+          $_SESSION['grp']=$grp;
+
 
            $token =rand(10,1000);
            $to      = "mabite@mailinator.com";
@@ -56,7 +59,7 @@ function ajout_user(){
            $message = "Bonjour !"."\n"."Veuillez rentrer le code dans le formulaire."."\n"."Le code:" .$token;
            $headers = "From: support@Castellanecars.fr";
            mail($to, $subject, $message, $headers);
-           $tokenCrypt = password_hash($token, PASSWORD_BCRYPT);
+           $tokenCrypt = sha1($token);
 
            $query3 = "UPDATE `client` SET `RandToken` = '$tokenCrypt' WHERE `client`.`idu` = '$id';";
            $query3ok=$db->prepare($query3);
