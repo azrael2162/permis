@@ -121,7 +121,8 @@ CREATE TABLE client(
         prenom          Varchar (50) NOT NULL ,
         mail            VARCHAR (200),
         passwd          VARCHAR (255),
-        valider         INT (1),
+        RandToken       VARCHAR (255),
+        valider         int (1),
         idu_moniteur    Int  ,
         idgrp           Int NOT NULL
 	,CONSTRAINT client_PK PRIMARY KEY (idu)
