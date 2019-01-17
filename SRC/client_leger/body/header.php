@@ -47,10 +47,10 @@ session_start();
         <a class="nav-link" href="?page=mescours">page membre</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="?page=membre">page membre</a>
+        <a class="nav-link" href="?page=membre">Mon planning</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="?page=contact">page membre</a>
+        <a class="nav-link" href="?page=deconnexion">deconnexion</a>
       </li>
     </ul>
   </div>

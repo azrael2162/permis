@@ -29,7 +29,7 @@ function ajout_user(){
             $psswcrypt = sha1($passwd);
 
             $requete = "INSERT INTO client (`idu`, `adresse`, `code_zip`,`datenaissa`, `tel`, `nom`, `prenom`, `mail`, `passwd`, `valider`, `idu_moniteur`, `idgrp`) VALUES
-            (NULL, '$adress', '$zip', '$date', '$tel', '$nom', '$prenom', '$email', '$psswcrypt','0', NULL, '1');";
+            (NULL, '$adress', '$zip', '$date', '$tel', '$nom', '$prenom', '$email', '$psswcrypt','0', NULL, '2');";
 
 
 

@@ -21,7 +21,7 @@ function verifToken(){
           $query5 = "UPDATE `client` SET `valider` = '1' WHERE `client`.`idu` ='".$_SESSION['idu']."';";
           $query5ok=$db->prepare($query5);
           $query5ok->execute();
-          header('location: ?page=membre');
+          header('location: ?page=accueil');
       }else {
         echo "pas string";
       }
