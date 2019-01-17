@@ -45,6 +45,10 @@ CREATE TABLE voiture(
 )ENGINE=InnoDB;
 
 
+
+
+
+
 #------------------------------------------------------------
 # Table: grp
 #------------------------------------------------------------
@@ -178,9 +182,9 @@ DELIMITER //
 CREATE TRIGGER checkcar
 AFTER  INSERT  on voiture for each row
 begin
-if new.nb_km < 200000
-THEN signal SQLSTATE '45000'
-SET MESSAGE_TEXT = 'impossible';
+if new.nb_km >= 200000
+THEN
+INSERT INTO `rouler` (`idv`, `idm`, `km`) VALUES (new.idv,1,new.nb_km);
 END IF;
 END //
 DELIMITER ;

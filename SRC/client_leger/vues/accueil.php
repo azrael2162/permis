@@ -1,5 +1,6 @@
 <?php
 require 'fonctionphp/inscription.php';
+require 'fonctionphp/contact.php';
 ?>
 <div class="container">
 <center>
@@ -56,6 +57,7 @@ require 'fonctionphp/inscription.php';
   <center>
   <div class="row">
     <div class="col">
+      <?php if (empty($_SESSION['grp'])): ?>
       <h5 id="1" >Devenez membre</h5>
       <br>
       <form class="" action="" method="post">
@@ -71,27 +73,30 @@ require 'fonctionphp/inscription.php';
         <?php ajout_user();?>
       </form>
     </div>
+    <?php endif; ?>
+
     <div class="col">
       <h5>Formulaire de contact</h5>
       <br>
       <form class="" action="" method="post">
-          </a>        <div class="row">
+     <div class="row">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Prénom">
+            <input type="text" name="prenom" class="form-control" placeholder="Prénom">
           </div>
           <div class="col">
-            <input type="text" class="form-control" placeholder="Nom">
+            <input type="text" name="nom" class="form-control" placeholder="Nom">
           </div>
           <br><br>
         </div>
         <br>
-        <input type="text" name="" class="form-control" placeholder="L'objet">
+        <input type="text" name="objet" class="form-control" placeholder="L'objet">
         <br>
-        <input type="mail" name="" class="form-control" placeholder"votre Email">
+        <input type="email" name="mail" class="form-control" placeholder="votre Email">
         <br><br>
-        <textarea class="form-control" id="exampleTextarea" placeholder="Votre sujet" rows="9"></textarea>
+        <textarea class="form-control"  name="sujet" id="exampleTextarea" placeholder="Votre sujet" rows="9"></textarea>
         <br><br>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Envoyer</button>
+        <input type="submit" name"valid" value="Envoyer" class="btn btn-primary btn-lg btn-block"></input>
+        <?php contact(); ?>
       </form>
     </div>
   </div>
