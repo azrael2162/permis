@@ -45,12 +45,14 @@ function ajout_user(){
               while ($row = $query2ok->fetch(PDO::FETCH_NUM)) {
                 $id=$row[0];
                 $grp=$row[12];
+                $val = $row[10];
               }
 
           //ouverture de la session_start
 
           $_SESSION['idu']=$id;
           $_SESSION['grp']=$grp;
+          $_SESSION['valider']=$val;
 
 
            $token =rand(10,1000);

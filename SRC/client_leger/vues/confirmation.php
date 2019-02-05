@@ -2,7 +2,7 @@
 require 'fonctionphp/verifToken.php';
 
 
-  if (!empty($_SESSION['idu'])) {
+  if ($_SESSION['valider'] == 0) {
       echo "
       <div class='container'>
       <br><br><br>
@@ -21,7 +21,13 @@ require 'fonctionphp/verifToken.php';
       </div>
       ";
   }else {
-    echo "pas string";
+    echo "
+    <div class='container'>
+    <center>
+    <img height='300px' width='600px' src='https://www.anthedesign.fr/w2015/wp-content/uploads/2015/10/errreur-404-not-found-e1445791813328.jpg' alt=''><br>
+    <a href='?page=accueil'>Veuillez retourner sur l'accueil.</a>
+    </center>
+    </div>";
   }
 
 ?>

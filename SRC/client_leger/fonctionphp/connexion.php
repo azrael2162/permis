@@ -18,11 +18,15 @@ function Connexion(){
         while ($row = $query2ok->fetch(PDO::FETCH_NUM)) {
           $id=$row[0];
           $grp=$row[12];
+          $val = $row[10];
+
         }
         header('location: ?page=accueil');
         session_start();
         $_SESSION['idu']=$id;
         $_SESSION['grp']=$grp;
+        $_SESSION['valider']=$val;
+
 
       }else {
          echo "<div class='alert alert-dismissible alert-danger'>

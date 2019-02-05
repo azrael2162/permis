@@ -44,7 +44,7 @@ session_start();
         <a class="nav-link" href="?pages=accueil">Accueil</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="?page=mescours">page membre</a>
+        <a class="nav-link" href="?page=membre">page membre</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="?page=membre">Mon planning</a>

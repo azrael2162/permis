@@ -1,7 +1,20 @@
 <?php
 require 'fonctionphp/inscription.php';
 require 'fonctionphp/contact.php';
+require 'fonctionphp/recup_info_membre.php';
+
 ?>
+<?php
+GLOBAL $mail;
+GLOBAL $adresse;
+GLOBAL $code_zip;
+GLOBAL $datenaissa;
+GLOBAL $tel;
+GLOBAL $nom;
+GLOBAL $prenom;
+GLOBAL $mail;
+ ?>
+<?php if (empty($_SESSION['grp'])): ?>
 <div class="container">
 <center>
  <h1 class="my-4">Bienvenue sur,
@@ -57,7 +70,7 @@ require 'fonctionphp/contact.php';
   <center>
   <div class="row">
     <div class="col">
-      <?php if (empty($_SESSION['grp'])): ?>
+      <?php if (@empty($_SESSION['grp'])): ?>
       <h5 id="1" >Devenez membre</h5>
       <br>
       <form class="" action="" method="post">
@@ -65,7 +78,7 @@ require 'fonctionphp/contact.php';
         <input type="text" class="form-control" name="prenom" placeholder="Prenom"><br>
         <input type="password" class="form-control" name="password" placeholder="Password"><br>
         <input type="mail" class="form-control" name="email" placeholder="Email"><br>
-        <input type="Date" class="form-control" name="date" placeholder=""><br>
+        <input type="date" class="form-control" name="date" placeholder=""><br>
         <input type="number" class="form-control" name="tel" placeholder="Numero de télépohne"><br>
         <input type="varchar" class="form-control" name="adress" placeholder="Adresse"> <br>
         <input type="number" class="form-control" name="zip" placeholder="Départment"><br>
@@ -91,7 +104,7 @@ require 'fonctionphp/contact.php';
         <br>
         <input type="text" name="objet" class="form-control" placeholder="L'objet">
         <br>
-        <input type="email" name="mail" class="form-control" placeholder="votre Email">
+        <input type="mail" name="mail" class="form-control" placeholder="votre Email">
         <br><br>
         <textarea class="form-control"  name="sujet" id="exampleTextarea" placeholder="Votre sujet" rows="9"></textarea>
         <br><br>
@@ -104,3 +117,54 @@ require 'fonctionphp/contact.php';
   </section>
   </div>
 </div>
+<?php endif; ?>
+
+<?php if (@$_SESSION['grp'] == 2): ?>
+  <div class:"row">
+    <div class="col">
+      <h5 id="1" >Votre planning</h5>
+        <br><br>
+        <iframe src="https://fr.wikipedia.org/wiki/Google" width="" height=""></iframe>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <br><br>
+      <h5 id="1" >Vos informations</h5>
+      <br>
+      <input type="text" class="form-control" disabled name="nom" placeholder="<?=$nom?>"><br>
+      <input type="text" class="form-control" disabled name="prenom" placeholder="<?=$prenom?>"><br>
+      <input type="mail" class="form-control" disabled name="email" placeholder="<?=$mail?>"><br>
+      <input type="date" class="form-control" disabled name="date" value="<?=$datenaissa?>"><br>
+      <input type="number" class="form-control" disabled name="tel" placeholder="<?=$tel?>"><br>
+      <input type="varchar" class="form-control" disabled name="adress" placeholder="<?=$adresse?>"> <br>
+      <input type="number" class="form-control" disabled name="zip" placeholder="<?=$code_zip?>"><br>
+      </form>
+    </div>
+
+    <div class="col">
+      <h5>Nous contacter</h5>
+      <br>
+      <form class="" action="" method="post">
+     <div class="row">
+          <div class="col">
+            <input type="text" name="prenom" class="form-control" placeholder="Prénom">
+          </div>
+          <div class="col">
+            <input type="text" name="nom" class="form-control" placeholder="Nom">
+          </div>
+          <br><br>
+        </div>
+        <br>
+        <input type="text" name="objet" class="form-control" placeholder="L'objet">
+        <br>
+        <input type="mail" name="mail" class="form-control" placeholder="votre Email">
+        <br><br>
+        <textarea class="form-control"  name="sujet" id="exampleTextarea" placeholder="Votre sujet" rows="9"></textarea>
+        <br><br>
+        <input type="submit" name"valid" value="Envoyer" class="btn btn-primary btn-lg btn-block"></input>
+        <?php contact(); ?>
+      </form>
+    </div>
+  </div>
+<?php endif; ?>
