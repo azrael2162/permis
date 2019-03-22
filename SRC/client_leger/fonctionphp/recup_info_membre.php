@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+require 'config.php';
 @$id = $_SESSION['idu'];
 GLOBAL $db;
 $query = "SELECT * FROM client WHERE idu=$id;";
@@ -18,6 +18,8 @@ $count=$query2ok->rowCount();
       $nom=$row[5];
       $prenom=$row[6];
       $mail=$row[7];
+      $val =$row[10];
+      $moni=$row[11];
     }
 
 }

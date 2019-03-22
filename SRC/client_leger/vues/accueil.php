@@ -13,6 +13,7 @@ GLOBAL $tel;
 GLOBAL $nom;
 GLOBAL $prenom;
 GLOBAL $mail;
+GLOBAL $val;
  ?>
 <?php if (empty($_SESSION['grp'])): ?>
 <div class="container">
@@ -70,7 +71,7 @@ GLOBAL $mail;
   <center>
   <div class="row">
     <div class="col">
-      <?php if (@empty($_SESSION['grp'])): ?>
+      <?php if ($val == 0): ?>
       <h5 id="1" >Devenez membre</h5>
       <br>
       <form class="" action="" method="post">
@@ -109,7 +110,12 @@ GLOBAL $mail;
         <textarea class="form-control"  name="sujet" id="exampleTextarea" placeholder="Votre sujet" rows="9"></textarea>
         <br><br>
         <input type="submit" name"valid" value="Envoyer" class="btn btn-primary btn-lg btn-block"></input>
-        <?php contact(); ?>
+        <?php
+        if (isset($_POST['envoyer']) and ! isset($_SESSION['envoyer'])) {
+        contact();
+        $_SESSION['envoyer'] = 1;
+        }
+         ?>
       </form>
     </div>
   </div>
@@ -118,18 +124,24 @@ GLOBAL $mail;
   </div>
 </div>
 <?php endif; ?>
+<?php if ($val == 1): ?>
 
-<?php if (@$_SESSION['grp'] == 2): ?>
-  <div class:"row">
-    <div class="col">
-      <h5 id="1" >Votre planning</h5>
-        <br><br>
-        <iframe src="https://fr.wikipedia.org/wiki/Google" width="" height=""></iframe>
+  <div class="container">
+    <h5>Votre progression (total d'heures de conduite):</h5>
+    <br><br><br>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+      60%
+      </div>
     </div>
+    <input type="text" disabled type="text" class="form-control" value="50 heures de conduite">
   </div>
+
+
+
   <div class="row">
     <div class="col">
-      <br><br>
+      <br><br><br>
       <h5 id="1" >Vos informations</h5>
       <br>
       <input type="text" class="form-control" disabled name="nom" placeholder="<?=$nom?>"><br>
@@ -143,6 +155,7 @@ GLOBAL $mail;
     </div>
 
     <div class="col">
+      <br><br><br>
       <h5>Nous contacter</h5>
       <br>
       <form class="" action="" method="post">
@@ -162,8 +175,13 @@ GLOBAL $mail;
         <br><br>
         <textarea class="form-control"  name="sujet" id="exampleTextarea" placeholder="Votre sujet" rows="9"></textarea>
         <br><br>
-        <input type="submit" name"valid" value="Envoyer" class="btn btn-primary btn-lg btn-block"></input>
-        <?php contact(); ?>
+        <input type="submit" name="envoyer" value="Envoyer" class="btn btn-primary btn-lg btn-block"></input>
+      <?php
+      if (isset($_POST['envoyer']) and ! isset($_SESSION['envoyer'])) {
+      contact();
+      $_SESSION['envoyer'] = 1;
+      }
+      ?>
       </form>
     </div>
   </div>

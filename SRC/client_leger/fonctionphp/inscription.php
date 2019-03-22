@@ -56,6 +56,7 @@ function ajout_user(){
 
 
            $token =rand(10,1000);
+
            $to      = "mabite@mailinator.com";
            $subject = "Confirmation d inscription sur Castellane cars" ;
            $message = "Bonjour !"."\n"."Veuillez rentrer le code dans le formulaire."."\n"."Le code:" .$token;

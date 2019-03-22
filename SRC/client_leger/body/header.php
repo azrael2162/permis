@@ -41,13 +41,13 @@ session_start();
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="?pages=accueil">Accueil</a>
+        <a class="nav-link" href="?pages=accueil">dashboard</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="?page=membre">page membre</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="?page=membre">Mon planning</a>
+        <a class="nav-link" href="?page=planning">Mon planning</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="?page=deconnexion">deconnexion</a>

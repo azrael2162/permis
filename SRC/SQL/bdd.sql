@@ -104,7 +104,8 @@ CREATE TABLE admin(
         prenom        Varchar (50) NOT NULL ,
         mail          VARCHAR (200),
         passwd        VARCHAR (255),
-        idgrp         Int NOT NULL
+        imageProfil   Varchar (255),
+	idgrp         Int NOT NULL
 	,CONSTRAINT admin_PK PRIMARY KEY (idu)
 
 	,CONSTRAINT admin_grp0_FK FOREIGN KEY (idgrp) REFERENCES grp(idgrp)
@@ -142,15 +143,10 @@ CREATE TABLE client(
 
 CREATE TABLE lecon(
         idl        Int  Auto_increment  NOT NULL ,
-        date_heure Date NOT NULL ,
         idv        Int NOT NULL ,
-        idu        Int NOT NULL ,
-        idu_client Int NOT NULL
 	,CONSTRAINT lecon_PK PRIMARY KEY (idl)
 
 	,CONSTRAINT lecon_voiture_FK FOREIGN KEY (idv) REFERENCES voiture(idv)
-	,CONSTRAINT lecon_moniteur0_FK FOREIGN KEY (idu) REFERENCES moniteur(idu)
-	,CONSTRAINT lecon_client1_FK FOREIGN KEY (idu_client) REFERENCES client(idu)
 )ENGINE=InnoDB;
 
 
@@ -167,6 +163,23 @@ CREATE TABLE rouler(
 	,CONSTRAINT rouler_voiture_FK FOREIGN KEY (idv) REFERENCES voiture(idv)
 	,CONSTRAINT rouler_mois0_FK FOREIGN KEY (idm) REFERENCES mois(idm)
 )ENGINE=InnoDB;
+
+
+Create table planning(
+  iduc Int NOT NULL,
+  idum Int NOT NULL,
+  idl  Int NOT NULL,
+  datehd DateTIME,
+  datehf DateTIME,
+  etat enum("valider","en cours","annuler"),
+  primary key(iduc,idum,idl,datehd),
+  FOREIGN KEY (iduc) REFERENCES client(idu),
+  FOREIGN KEY (idum) REFERENCES moniteur(idu),
+  FOREIGN KEY (idl) REFERENCES lecon(idl)
+);
+
+
+
 
 INSERT INTO `modele` (`idmo`, `nom`, `cylindre`)
  VALUES ('1', 'ssdsdsd', '234');
@@ -203,3 +216,20 @@ INSERT INTO `moniteur` (`idu`, `date_embauche`, `nom`, `prenom`, `datenaissa`, `
 (NULL, '2015-12-18', 'Fleure', 'marie', '1985-12-01', 'sdsdd@yahoo.fr', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', '2');
 
 INSERT INTO `admin` (`idu`, `date_embauche`, `nom`, `prenom`, `mail`, `passwd`, `idgrp`) VALUES (NULL, '2018-12-18', 'test', 'test', 'masdsdjsd@sdsdsd.fr', MD5('sdsdsdsd'), '1');
+
+INSERT INTO `client` (`idu`, `adresse`, `code_zip`, `datenaissa`, `tel`, `nom`, `prenom`, `mail`, `passwd`, `RandToken`, `valider`, `idu_moniteur`, `idgrp`) VALUES (NULL, '9 rue osef', '92400', '1992-09-05', '002232323', 'sdsdsd', 'sdsdsd', 'sdsdsdsd', SHA1('slipknot'), NULL, '1', NULL, '2');
+
+
+INSERT INTO `lecon` (`idl`, `date_heure`, `idv`, `idu`, `idu_client`) VALUES (NULL, '2019-03-18', '2', '1', '1');
+
+CREATE VIEW liste_moniteur_occupe AS
+SELECT  moniteur.idu ,nom , prenom, date_heure
+FROM  moniteur
+INNER JOIN lecon
+ON  moniteur.idu = lecon.idu ;
+
+CREATE view liste_moniteur_libre AS
+SELECT *
+FROM moniteur
+WHERE idu
+NOT IN (select idu from lecon);
